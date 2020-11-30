@@ -123,6 +123,7 @@ public class SlackSlashCommandController {
         attachments[0].setText(String.format("%s status", params.getTeamId()));
         attachments[1].setText(String.format("%s time", params.getTeamId()));
         attachments[2].setText(String.format("%s debug", params.getTeamId()));
+        richMessage.setAttachments(attachments);
 
         return richMessage.encodedMessage(); // don't forget to send the encoded message to Slack
     }
