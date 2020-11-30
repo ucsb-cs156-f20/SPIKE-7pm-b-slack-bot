@@ -4,20 +4,51 @@
 
 ## Purpose
 
-This app is a course project of <https://ucsb-cs156.github.io>, a course at [UC Santa Barbara](https://ucsb.edu).
+This app is spike of creating a slack bot built on top of the
+[demo-spring-react-minimal](https://github.com/ucsb-cs156-f20/demo-spring-react-minimal) app.  It is part of a course project of <https://ucsb-cs156.github.io>, a course at [UC Santa Barbara](https://ucsb.edu).
 
-This repo is intended to be starter code for apps that have a
+
+This repo uses:
+* JBot for configuration of the Slack Bot
 * Spring Boot Backend
 * React Front end
 * Auth0 authentication using Google
-* privilege levels "not logged in", guest, member and admin, where
-  * guest means you've logged in, but with a non ucsb email address
-  * member means you've logged in with a ucsb email address
-  * admin means you are in the list of admins 
-    in the `application.properties` file, or else you've been 
-    added to the admins table by someone that's already an 
-    admin.
 
+## Specific Notes on Slack Bots
+
+Resources:
+
+* JBot documentation: <https://blog.rampatra.com/how-to-make-a-slack-bot-in-java#getting-started>
+
+Notes:
+
+Be sure that the route you choose for the slash commands is one that is not protected to require logins.  This is configured in `src/main/java/edu/ucsb/changeme/config/SecurityConfig.java`.  For example, this code says that anything under `/api/public/` doesn't need
+authentication.
+
+```java
+http.authorizeRequests().mvcMatchers("/api/public/**").permitAll()
+```
+
+Testing with CURL:
+
+If you have `curl` installed on your system, you can try interacting with the slack bot by simulating the message that Slack would send to your back end.  Here's an example.  You need to replace `put-your-slash-command-token-here` with the value of the Slack command
+token that you get from Slack when configuring the slack commands.
+
+```
+curl -d "token=put-your-slash-command-token-here&team_id=&team_domain=&channel_id=&channel_name=&user_id=&user_name=&command=&text=&response_url=" -X POST http://localhost:8080/api/public/slash-command
+```
+
+If it works, you should see the log message on the Spring Back end console:
+
+```
+2020-11-30 13:43:50.938  INFO 58259 --- [nio-8080-exec-5] e.u.c.c.SlackSlashCommandController      : slash command processing...
+```
+
+And in the terminal where you typed the curl command, you should see something like this:
+
+```
+{"username":null,"channel":null,"text":"The is Slash Commander!","attachments":[{"fallback":null,"color":null,"pretext":null,"title":null,"text":"I will perform all tasks for you.","fields":null,"footer":null,"ts":null,"author_name":null,"author_link":null,"author_icon":null,"title_link":null,"image_url":null,"thumb_url":null,"footer_icon":null}],"icon_emoji":null,"response_type":"in_channel"}  
+```
 
 ## Property file values
 
