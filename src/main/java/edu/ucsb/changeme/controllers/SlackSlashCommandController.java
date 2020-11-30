@@ -120,9 +120,9 @@ public class SlackSlashCommandController {
         Attachment[] attachments = new Attachment[numAttachments];
         for (int i = 0; i < numAttachments; i++)
             attachments[i] = new Attachment();
-        attachments[0].setText(String.format("%s status", params.getTeamId()));
-        attachments[1].setText(String.format("%s time", params.getTeamId()));
-        attachments[2].setText(String.format("%s debug", params.getTeamId()));
+        attachments[0].setText(String.format("%s status", params.getCommand()));
+        attachments[1].setText(String.format("%s time", params.getCommand()));
+        attachments[2].setText(String.format("%s debug", params.getCommand()));
         richMessage.setAttachments(attachments);
 
         return richMessage.encodedMessage(); // don't forget to send the encoded message to Slack
