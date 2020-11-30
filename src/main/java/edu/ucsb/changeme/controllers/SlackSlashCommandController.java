@@ -67,27 +67,31 @@ public class SlackSlashCommandController {
 
         logger.info("slash command processing...");
         if (!token.equals(slackToken)) {
-            return new RichMessage("Sorry! You're not lucky enough to use our slack command.");
+            return new RichMessage("Sorry: the slack bot received an invalid token.");
         }
 
         /** build response */
         RichMessage richMessage = new RichMessage("The is Slash Commander!");
         richMessage.setResponseType("in_channel");
         // set attachments
-        Attachment[] attachments = new Attachment[1];
-        attachments[0] = new Attachment();
-        attachments[0].setText("I will perform all tasks for you.");
+        int numAttachments = 8;
+        Attachment[] attachments = new Attachment[numAttachments];
+        for (int i=0; i<numAttachments; i++)
+            attachments[i] = new Attachment();
+        attachments[0].setText(String.format("team_id=%s",teamId));
+        attachments[1].setText(String.format("team_domain=%s",teamDomain));
+        attachments[2].setText(String.format("channel_id=%s",channelId));
+        attachments[3].setText(String.format("channel_name=%s",channelName));
+        attachments[4].setText(String.format("user_id=%s",userId));
+        attachments[5].setText(String.format("user_name=%s",userName));
+        attachments[6].setText(String.format("command=%s",command));
+        attachments[7].setText(String.format("text=%s",text));
+
         richMessage.setAttachments(attachments);
-        
-        // For debugging purpose only
-        if (logger.isDebugEnabled()) {
-            try {
-                logger.debug("Reply (RichMessage): {}", new ObjectMapper().writeValueAsString(richMessage));
-            } catch (JsonProcessingException e) {
-                logger.debug("Error parsing RichMessage: ", e);
-            }
-        }
         
         return richMessage.encodedMessage(); // don't forget to send the encoded message to Slack
     }
+
+    
+
 }
