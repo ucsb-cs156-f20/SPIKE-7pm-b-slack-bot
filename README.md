@@ -29,6 +29,17 @@ authentication.
 http.authorizeRequests().mvcMatchers("/api/public/**").permitAll()
 ```
 
+Configuring Slash command:
+
+Assuming you have your app running on Heroku, and that the slash command route is `/api/public/slash-command`, you'll need to put 
+something like this in as the URL when configuring your slash
+command.  The name of the herokuapp may change; it's the `/api/public/slash-command` part that needs to match whatever you have as the
+route in the controller class.
+
+```
+https://spike-7pm-b-slack-bot.herokuapp.com/api/public/slash-command
+```
+
 Testing with CURL:
 
 If you have `curl` installed on your system, you can try interacting with the slack bot by simulating the message that Slack would send to your back end.  Here's an example.  You need to replace `put-your-slash-command-token-here` with the value of the Slack command
