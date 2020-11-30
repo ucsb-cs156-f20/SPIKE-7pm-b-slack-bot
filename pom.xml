@@ -91,6 +91,13 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/me.ramswaroop.jbot/jbot -->
+		<dependency>
+			<groupId>me.ramswaroop.jbot</groupId>
+			<artifactId>jbot</artifactId>
+			<version>3.0.2</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
