@@ -81,7 +81,7 @@ public class SlackSlashCommandController {
 
         String textParts[] = params.getTextParts();
 
-        if (textParts.length <= 0) {
+        if (textParts.length <= 0 || textParts[0].equals("")) {
             return emptyCommand(params);
         }
 
@@ -96,7 +96,7 @@ public class SlackSlashCommandController {
         }
 
         if (firstArg.equals("debug")) {
-            return timeCommand(params);
+            return debugCommand(params);
         }
 
         return unknownCommand(params);
